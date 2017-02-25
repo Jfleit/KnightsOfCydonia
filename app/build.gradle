@@ -25,7 +25,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.2.0'
-    ///Users/bkozik/libmuse_6.0.0/android/examples/TestLibMuseAndroid/app/libs
+
     compile files('libs/libmuse_android.jar')
     testCompile 'junit:junit:4.12'
     compile files('libs/libmuse_android.jar')
