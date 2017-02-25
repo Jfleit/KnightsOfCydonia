@@ -53,7 +53,146 @@ public class MainActivity extends AppCompatActivity {
 
         manager = MuseManagerAndroid.getInstance();
         manager.setContext(this);
+
+        WeakReference<MainActivity> weakActivity =
+                new WeakReference<MainActivity>(this);
+        // Register a listener to receive connection state changes.
+        connectionListener = new ConnectionListener(weakActivity);
+        // Register a listener to receive data from a Muse.
+        dataListener = new DataListener(weakActivity);
+        ensurePermissions();
+        initUI();
+        handler.post(tickUi);
     }
+
+    private void ensurePermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which){
+                    dialog.dismiss();
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+                }
+            };
+        }
+    }
+
+    public void receiveMuseConnectionPacket(final MuseConnectionPacket p, final Muse muse) {
+
+        final ConnectionState current = p.getCurrentConnectionState();
+
+        // Format a message to show the change of connection state in the UI.
+        final String status = p.getPreviousConnectionState() + " -> " + current;
+
+
+        // Update the UI with the change in connection state.
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                final TextView statusText = (TextView) findViewById(R.id.con_status);
+                statusText.setText(status);
+
+                final MuseVersion museVersion = muse.getMuseVersion();
+                final TextView museVersionText = (TextView) findViewById(R.id.version);
+                // If we haven't yet connected to the headband, the version information
+                // will be null.  You have to connect to the headband before either the
+                // MuseVersion or MuseConfiguration information is known.
+                if (museVersion != null) {
+                    final String version = museVersion.getFirmwareType() + " - "
+                            + museVersion.getFirmwareVersion() + " - "
+                            + museVersion.getProtocolVersion();
+                    museVersionText.setText(version);
+                } else {
+                    museVersionText.setText(R.string.undefined);
+                }
+            }
+        });
+
+        if (current == ConnectionState.DISCONNECTED) {
+            this.muse = null;
+        }
+    }
+
+    public void receiveMuseDataPacket(final MuseDataPacket p, final Muse muse) {
+        writeDataPacketToFile(p);
+
+        // valuesSize returns the number of data values contained in the packet.
+        final long n = p.valuesSize();
+        switch (p.packetType()) {
+            case EEG:
+                assert(eegBuffer.length >= n);
+                getEegChannelValues(eegBuffer,p);
+                eegStale = true;
+                break;
+            case ACCELEROMETER:
+                assert(accelBuffer.length >= n);
+                getAccelValues(p);
+                accelStale = true;
+                break;
+            case ALPHA_RELATIVE:
+                assert(alphaBuffer.length >= n);
+                getEegChannelValues(alphaBuffer,p);
+                alphaStale = true;
+                break;
+            case BATTERY:
+            case DRL_REF:
+            case QUANTIZATION:
+            default:
+                break;
+        }
+    }
+
+    public void receiveMuseArtifactPacket(final MuseArtifactPacket p, final Muse muse) {
+    }
+    private void getEegChannelValues(double[] buffer, MuseDataPacket p) {
+        buffer[0] = p.getEegChannelValue(Eeg.EEG1);
+        buffer[1] = p.getEegChannelValue(Eeg.EEG2);
+        buffer[2] = p.getEegChannelValue(Eeg.EEG3);
+        buffer[3] = p.getEegChannelValue(Eeg.EEG4);
+        buffer[4] = p.getEegChannelValue(Eeg.AUX_LEFT);
+        buffer[5] = p.getEegChannelValue(Eeg.AUX_RIGHT);
+    }
+
+
+    private void getAccelValues(MuseDataPacket p) {
+        accelBuffer[0] = p.getAccelerometerValue(Accelerometer.X);
+        accelBuffer[1] = p.getAccelerometerValue(Accelerometer.Y);
+        accelBuffer[2] = p.getAccelerometerValue(Accelerometer.Z);
+    }
+
+
+    //Todo: we need an initUI method, but with our stuff, not theirs
+    private void initUI() {
+
+    }
+
+    /**
+     * The runnable that is used to update the UI at 60Hz.
+     *
+     * We update the UI from this Runnable instead of in packet handlers
+     * because packets come in at high frequency -- 220Hz or more for raw EEG
+     * -- and it only makes sense to update the UI at about 60fps. The update
+     * functions do some string allocation, so this reduces our memory
+     * footprint and makes GC pauses less frequent/noticeable.
+     */
+    private final Runnable tickUi = new Runnable() {
+        @Override
+        public void run() {
+            if (eegStale) {
+                updateEeg();
+            }
+            if (accelStale) {
+                updateAccel();
+            }
+            if (alphaStale) {
+                updateAlpha();
+            }
+            handler.postDelayed(tickUi, 1000 / 60);
+        }
+    };
+
+
+
 
 
 
