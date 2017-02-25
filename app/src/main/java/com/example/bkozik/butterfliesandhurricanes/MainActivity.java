@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
         // Register a listener to receive data from a Muse.
         dataListener = new DataListener(weakActivity);
         ensurePermissions();
+        setContentView(R.layout.activity_main);
+        TextView textView = (TextView) findViewById(R.id.textView5);
+        textView.setText("" + eegBuffer[0]);
         initUI();
         handler.post(tickUi);
     }
@@ -185,9 +188,7 @@ public class MainActivity extends AppCompatActivity {
             if (accelStale) {
                 updateAccel();
             }
-            if (alphaStale) {
-                updateAlpha();
-            }
+
             handler.postDelayed(tickUi, 1000 / 5);
         }
     };
@@ -212,22 +213,6 @@ public class MainActivity extends AppCompatActivity {
         fp2.setText(String.format("%6.2f", eegBuffer[2]));
         tp10.setText(String.format("%6.2f", eegBuffer[3]));
     }
-
-    private void updateAlpha() {
-        TextView elem1 = (TextView)findViewById(R.id.elem1);
-        elem1.setText(String.format("%6.2f", alphaBuffer[0]));
-        TextView elem2 = (TextView)findViewById(R.id.elem2);
-        elem2.setText(String.format("%6.2f", alphaBuffer[1]));
-        TextView elem3 = (TextView)findViewById(R.id.elem3);
-        elem3.setText(String.format("%6.2f", alphaBuffer[2]));
-        TextView elem4 = (TextView)findViewById(R.id.elem4);
-        elem4.setText(String.format("%6.2f", alphaBuffer[3]));
-    }
-
-
-
-
-
 
     class MuseL extends MuseListener {
         final WeakReference<MainActivity> activityRef;
