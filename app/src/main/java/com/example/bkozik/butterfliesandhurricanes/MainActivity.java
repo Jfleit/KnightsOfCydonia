@@ -94,19 +94,10 @@ public class MainActivity extends AppCompatActivity {
                 final TextView statusText = (TextView) findViewById(R.id.con_status);
                 statusText.setText(status);
 
-                final MuseVersion museVersion = muse.getMuseVersion();
-                final TextView museVersionText = (TextView) findViewById(R.id.version);
+
                 // If we haven't yet connected to the headband, the version information
                 // will be null.  You have to connect to the headband before either the
                 // MuseVersion or MuseConfiguration information is known.
-                if (museVersion != null) {
-                    final String version = museVersion.getFirmwareType() + " - "
-                            + museVersion.getFirmwareVersion() + " - "
-                            + museVersion.getProtocolVersion();
-                    museVersionText.setText(version);
-                } else {
-                    museVersionText.setText("unknown");
-                }
             }
         });
 
