@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         switch (p.packetType()) {
             case EEG:
                 assert(eegBuffer.length >= n);
-                getEegChannelValues(eegBuffer,p);
+                getEegChannelValues(p);
                 eegStale = true;
                 break;
             case ACCELEROMETER:
@@ -137,13 +137,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void receiveMuseArtifactPacket(final MuseArtifactPacket p, final Muse muse) {
     }
-    private void getEegChannelValues(double[] buffer, MuseDataPacket p) {
-        buffer[0] = p.getEegChannelValue(Eeg.EEG1);
-        buffer[1] = p.getEegChannelValue(Eeg.EEG2);
-        buffer[2] = p.getEegChannelValue(Eeg.EEG3);
-        buffer[3] = p.getEegChannelValue(Eeg.EEG4);
-        buffer[4] = p.getEegChannelValue(Eeg.AUX_LEFT);
-        buffer[5] = p.getEegChannelValue(Eeg.AUX_RIGHT);
+    private void getEegChannelValues(MuseDataPacket p) {
+        eegBuffer[0] = p.getEegChannelValue(Eeg.EEG1);
+        eegBuffer[1] = p.getEegChannelValue(Eeg.EEG2);
+        eegBuffer[2] = p.getEegChannelValue(Eeg.EEG3);
+        eegBuffer[3] = p.getEegChannelValue(Eeg.EEG4);
+        eegBuffer[4] = p.getEegChannelValue(Eeg.AUX_LEFT);
+        eegBuffer[5] = p.getEegChannelValue(Eeg.AUX_RIGHT);
     }
 
 
