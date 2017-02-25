@@ -31,6 +31,8 @@ import android.support.v4.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+    //todo remove all errors
+    //todo make a UI
     private MuseManagerAndroid manager;
     private Muse muse;
     private ConnectionListener connectionListener;
@@ -114,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void receiveMuseDataPacket(final MuseDataPacket p, final Muse muse) {
-        writeDataPacketToFile(p);
 
         // valuesSize returns the number of data values contained in the packet.
         final long n = p.valuesSize();
@@ -187,11 +188,41 @@ public class MainActivity extends AppCompatActivity {
             if (alphaStale) {
                 updateAlpha();
             }
-            handler.postDelayed(tickUi, 1000 / 60);
+            handler.postDelayed(tickUi, 1000 / 5);
         }
     };
 
+    //Todo change this to our shit
+    private void updateAccel() {
+        TextView acc_x = (TextView)findViewById(R.id.acc_x);
+        TextView acc_y = (TextView)findViewById(R.id.acc_y);
+        TextView acc_z = (TextView)findViewById(R.id.acc_z);
+        acc_x.setText(String.format("%6.2f", accelBuffer[0]));
+        acc_y.setText(String.format("%6.2f", accelBuffer[1]));
+        acc_z.setText(String.format("%6.2f", accelBuffer[2]));
+    }
 
+    private void updateEeg() {
+        TextView tp9 = (TextView)findViewById(R.id.eeg_tp9);
+        TextView fp1 = (TextView)findViewById(R.id.eeg_af7);
+        TextView fp2 = (TextView)findViewById(R.id.eeg_af8);
+        TextView tp10 = (TextView)findViewById(R.id.eeg_tp10);
+        tp9.setText(String.format("%6.2f", eegBuffer[0]));
+        fp1.setText(String.format("%6.2f", eegBuffer[1]));
+        fp2.setText(String.format("%6.2f", eegBuffer[2]));
+        tp10.setText(String.format("%6.2f", eegBuffer[3]));
+    }
+
+    private void updateAlpha() {
+        TextView elem1 = (TextView)findViewById(R.id.elem1);
+        elem1.setText(String.format("%6.2f", alphaBuffer[0]));
+        TextView elem2 = (TextView)findViewById(R.id.elem2);
+        elem2.setText(String.format("%6.2f", alphaBuffer[1]));
+        TextView elem3 = (TextView)findViewById(R.id.elem3);
+        elem3.setText(String.format("%6.2f", alphaBuffer[2]));
+        TextView elem4 = (TextView)findViewById(R.id.elem4);
+        elem4.setText(String.format("%6.2f", alphaBuffer[3]));
+    }
 
 
 
