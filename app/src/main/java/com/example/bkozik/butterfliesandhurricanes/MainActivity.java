@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Todo: we need an initUI method, but with our stuff, not theirs
     private void initUI() {
-
+        setContentView(R.layout.activity_main);
     }
 
     /**
