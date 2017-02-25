@@ -1,7 +1,7 @@
 package com.example.bkozik.butterfliesandhurricanes;
 
 
-
+import java.util.List;
 import java.lang.ref.WeakReference;
 
 import android.app.AlertDialog;
@@ -18,6 +18,53 @@ import com.choosemuse.libmuse.MuseDataPacketType;
 import com.choosemuse.libmuse.ConnectionState;
 import com.choosemuse.libmuse.Eeg;
 import com.choosemuse.libmuse.Accelerometer;
+import com.choosemuse.libmuse.LogManager;
+
+
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Looper;
+import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.bluetooth.BluetoothAdapter;
+
+
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import com.choosemuse.libmuse.Accelerometer;
+import com.choosemuse.libmuse.AnnotationData;
+import com.choosemuse.libmuse.ConnectionState;
+import com.choosemuse.libmuse.Eeg;
+import com.choosemuse.libmuse.LibmuseVersion;
+import com.choosemuse.libmuse.MessageType;
+import com.choosemuse.libmuse.Muse;
+import com.choosemuse.libmuse.MuseArtifactPacket;
+import com.choosemuse.libmuse.MuseConfiguration;
+import com.choosemuse.libmuse.MuseConnectionListener;
+import com.choosemuse.libmuse.MuseConnectionPacket;
+import com.choosemuse.libmuse.MuseDataListener;
+import com.choosemuse.libmuse.MuseDataPacket;
+import com.choosemuse.libmuse.MuseDataPacketType;
+import com.choosemuse.libmuse.MuseFileFactory;
+import com.choosemuse.libmuse.MuseFileReader;
+import com.choosemuse.libmuse.MuseFileWriter;
+import com.choosemuse.libmuse.MuseListener;
+import com.choosemuse.libmuse.MuseManagerAndroid;
+import com.choosemuse.libmuse.MuseVersion;
+import com.choosemuse.libmuse.Result;
+import com.choosemuse.libmuse.ResultLevel;
+
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -38,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
     private ConnectionListener connectionListener;
     private DataListener dataListener;
 
+    private ArrayAdapter<String> spinnerAdapter;
+
     private final double[] eegBuffer = new double[6];
     private boolean eegStale;
     private final double[] accelBuffer = new double[3];
@@ -52,9 +101,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         manager = MuseManagerAndroid.getInstance();
+        manager.startListening();
        // LogManager.instance().setLogListener(new AndroidLogListener());
         manager.setContext(this);
         manager.startListening();
+        List<Muse> museList = manager.getMuses();
 
 
 
@@ -143,6 +194,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    protected void onPause() {
+        super.onPause();
+        // It is important to call stopListening when the Activity is paused
+        // to avoid a resource leak from the LibMuse library.
+        manager.stopListening();
+    }
+
     public void receiveMuseArtifactPacket(final MuseArtifactPacket p, final Muse muse) {
     }
     private void getEegChannelValues(MuseDataPacket p) {
@@ -165,6 +223,11 @@ public class MainActivity extends AppCompatActivity {
     //Todo: we need an initUI method, but with our stuff, not theirs
     private void initUI() {
         setContentView(R.layout.activity_main);
+
+
+        spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        Spinner musesSpinner = (Spinner) findViewById(R.id.muses_spinner);
+        musesSpinner.setAdapter(spinnerAdapter);
     }
 
     /**
@@ -188,6 +251,76 @@ public class MainActivity extends AppCompatActivity {
             handler.postDelayed(tickUi, 1000 / 5);
         }
     };
+
+    //@Override
+    public void onClick(View v) {
+
+        //if (v.getId() == R.id.refresh) {
+            // The user has pressed the "Refresh" button.
+            // Start listening for nearby or paired Muse headbands. We call stopListening
+            // first to make sure startListening will clear the list of headbands and start fresh.
+        //    manager.stopListening();
+        //    manager.startListening();
+
+        //}
+        if (v.getId() == R.id.connect) {
+
+            // The user has pressed the "Connect" button to connect to
+            // the headband in the spinner.
+
+            // Listening is an expensive operation, so now that we know
+            // which headband the user wants to connect to we can stop
+            // listening for other headbands.
+            manager.stopListening();
+
+            List<Muse> availableMuses = manager.getMuses();
+            Spinner musesSpinner = (Spinner) findViewById(R.id.muses_spinner);
+
+            // Check that we actually have something to connect to.
+            if (availableMuses.size() < 1 || musesSpinner.getAdapter().getCount() < 1) {
+                Log.w(TAG, "There is nothing to connect to");
+            } else {
+
+                // Cache the Muse that the user has selected.
+                muse = availableMuses.get(musesSpinner.getSelectedItemPosition());
+                // Unregister all prior listeners and register our data listener to
+                // receive the MuseDataPacketTypes we are interested in.  If you do
+                // not register a listener for a particular data type, you will not
+                // receive data packets of that type.
+                muse.unregisterAllListeners();
+                muse.registerConnectionListener(connectionListener);
+                muse.registerDataListener(dataListener, MuseDataPacketType.EEG);
+                muse.registerDataListener(dataListener, MuseDataPacketType.ALPHA_RELATIVE);
+                muse.registerDataListener(dataListener, MuseDataPacketType.ACCELEROMETER);
+                //muse.registerDataListener(dataListener, MuseDataPacketType.BATTERY);
+                //muse.registerDataListener(dataListener, MuseDataPacketType.DRL_REF);
+                //muse.registerDataListener(dataListener, MuseDataPacketType.QUANTIZATION);
+
+                // Initiate a connection to the headband and stream the data asynchronously.
+                muse.runAsynchronously();
+            }
+
+        }
+        /*else if (v.getId() == R.id.disconnect) {
+
+            // The user has pressed the "Disconnect" button.
+            // Disconnect from the selected Muse.
+            if (muse != null) {
+                muse.disconnect();
+            }
+
+        } else if (v.getId() == R.id.pause) {
+
+            // The user has pressed the "Pause/Resume" button to either pause or
+            // resume data transmission.  Toggle the state and pause or resume the
+            // transmission on the headband.
+            if (muse != null) {
+                dataTransmission = !dataTransmission;
+                muse.enableDataTransmission(dataTransmission);
+            }
+         }
+        */
+    }
 
     //Todo change this to our shit
     private void updateAccel() {
