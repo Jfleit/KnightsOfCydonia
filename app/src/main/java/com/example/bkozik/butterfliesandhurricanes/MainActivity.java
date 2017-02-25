@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final double[] eegBuffer = new double[6];
     private boolean eegStale;
-    private final double[] alphaBuffer = new double[6];
-    private boolean alphaStale;
     private final double[] accelBuffer = new double[3];
     private boolean accelStale;
 
@@ -85,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         // Format a message to show the change of connection state in the UI.
         final String status = p.getPreviousConnectionState() + " -> " + current;
 
-
         // Update the UI with the change in connection state.
         handler.post(new Runnable() {
             @Override
@@ -105,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                             + museVersion.getProtocolVersion();
                     museVersionText.setText(version);
                 } else {
-                    museVersionText.setText(R.string.undefined);
+                    museVersionText.setText("unknown");
                 }
             }
         });
@@ -129,11 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 assert(accelBuffer.length >= n);
                 getAccelValues(p);
                 accelStale = true;
-                break;
-            case ALPHA_RELATIVE:
-                assert(alphaBuffer.length >= n);
-                getEegChannelValues(alphaBuffer,p);
-                alphaStale = true;
                 break;
             case BATTERY:
             case DRL_REF:
@@ -185,9 +177,6 @@ public class MainActivity extends AppCompatActivity {
             if (accelStale) {
                 updateAccel();
             }
-            if (alphaStale) {
-                updateAlpha();
-            }
             handler.postDelayed(tickUi, 1000 / 5);
         }
     };
@@ -213,34 +202,7 @@ public class MainActivity extends AppCompatActivity {
         tp10.setText(String.format("%6.2f", eegBuffer[3]));
     }
 
-    private void updateAlpha() {
-        TextView elem1 = (TextView)findViewById(R.id.elem1);
-        elem1.setText(String.format("%6.2f", alphaBuffer[0]));
-        TextView elem2 = (TextView)findViewById(R.id.elem2);
-        elem2.setText(String.format("%6.2f", alphaBuffer[1]));
-        TextView elem3 = (TextView)findViewById(R.id.elem3);
-        elem3.setText(String.format("%6.2f", alphaBuffer[2]));
-        TextView elem4 = (TextView)findViewById(R.id.elem4);
-        elem4.setText(String.format("%6.2f", alphaBuffer[3]));
-    }
 
-
-
-
-
-
-    class MuseL extends MuseListener {
-        final WeakReference<MainActivity> activityRef;
-
-        MuseL(final WeakReference<MainActivity> activityRef) {
-            this.activityRef = activityRef;
-        }
-
-        @Override
-        public void museListChanged() {
-            activityRef.get().museListChanged();
-        }
-    }
 
     class ConnectionListener extends MuseConnectionListener {
         final WeakReference<MainActivity> activityRef;
