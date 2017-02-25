@@ -1,28 +1,29 @@
 package com.example.bkozik.butterfliesandhurricanes;
 
 
-import java.io.File;
+
 import java.lang.ref.WeakReference;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
+
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import com.choosemuse.libmuse.*;
+import com.choosemuse.libmuse.MuseManagerAndroid;
+import com.choosemuse.libmuse.Muse;
+import com.choosemuse.libmuse.MuseArtifactPacket;
+import com.choosemuse.libmuse.MuseConnectionListener;
+import com.choosemuse.libmuse.MuseConnectionPacket;
+import com.choosemuse.libmuse.MuseDataListener;
+import com.choosemuse.libmuse.MuseDataPacket;
+import com.choosemuse.libmuse.MuseDataPacketType;
+import com.choosemuse.libmuse.ConnectionState;
+import com.choosemuse.libmuse.Eeg;
+import com.choosemuse.libmuse.Accelerometer;
+
 import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.Looper;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.bluetooth.BluetoothAdapter;
 
@@ -31,8 +32,7 @@ import android.support.v4.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    //todo remove all errors
-    //todo make a UI
+    private final String TAG = "Butterflies";
     private MuseManagerAndroid manager;
     private Muse muse;
     private ConnectionListener connectionListener;
@@ -52,7 +52,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         manager = MuseManagerAndroid.getInstance();
+       // LogManager.instance().setLogListener(new AndroidLogListener());
         manager.setContext(this);
+        manager.startListening();
+
+
+
+
+        //Log.i(TAG, "LibMuse version=" + LibmuseVersion.instance().getString());
 
         WeakReference<MainActivity> weakActivity =
                 new WeakReference<MainActivity>(this);
@@ -70,12 +77,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void ensurePermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            DialogInterface.OnClickListener buttonListener =
             new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which){
                     dialog.dismiss();
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
                 }
             };
+            AlertDialog introDialog = new AlertDialog.Builder(this)
+                    .setTitle("Permission needed")
+                    .setMessage("Tap accept")
+                    .setPositiveButton("I understand", buttonListener)
+                    .create();
+            introDialog.show();
         }
     }
 
