@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         // Register a listener to receive data from a Muse.
         dataListener = new DataListener(weakActivity);
         ensurePermissions();
+        setContentView(R.layout.activity_main);
+        TextView textView = (TextView) findViewById(R.id.textView5);
+        textView.setText("" + eegBuffer[0]);
         initUI();
         handler.post(tickUi);
     }

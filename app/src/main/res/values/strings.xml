@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ButterfliesAndHurricanes</string>
-    <string name="ur_mom">Tap me if you dare!</string>
+    <string name="ur_mom">Acceleration</string>
+    <string name="eeg">EEG</string>
 </resources>
