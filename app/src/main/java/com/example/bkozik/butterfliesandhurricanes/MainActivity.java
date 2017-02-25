@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final double[] eegBuffer = new double[6];
     private boolean eegStale;
-    private final double[] alphaBuffer = new double[6];
-    private boolean alphaStale;
     private final double[] accelBuffer = new double[3];
     private boolean accelStale;
 
@@ -63,9 +61,6 @@ public class MainActivity extends AppCompatActivity {
         // Register a listener to receive data from a Muse.
         dataListener = new DataListener(weakActivity);
         ensurePermissions();
-        setContentView(R.layout.activity_main);
-        TextView textView = (TextView) findViewById(R.id.textView5);
-        textView.setText("" + eegBuffer[0]);
         initUI();
         handler.post(tickUi);
     }
@@ -88,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         // Format a message to show the change of connection state in the UI.
         final String status = p.getPreviousConnectionState() + " -> " + current;
 
-
         // Update the UI with the change in connection state.
         handler.post(new Runnable() {
             @Override
@@ -108,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                             + museVersion.getProtocolVersion();
                     museVersionText.setText(version);
                 } else {
-                    museVersionText.setText(R.string.undefined);
+                    museVersionText.setText("unknown");
                 }
             }
         });
@@ -125,18 +119,13 @@ public class MainActivity extends AppCompatActivity {
         switch (p.packetType()) {
             case EEG:
                 assert(eegBuffer.length >= n);
-                getEegChannelValues(eegBuffer,p);
+                getEegChannelValues(p);
                 eegStale = true;
                 break;
             case ACCELEROMETER:
                 assert(accelBuffer.length >= n);
                 getAccelValues(p);
                 accelStale = true;
-                break;
-            case ALPHA_RELATIVE:
-                assert(alphaBuffer.length >= n);
-                getEegChannelValues(alphaBuffer,p);
-                alphaStale = true;
                 break;
             case BATTERY:
             case DRL_REF:
@@ -148,13 +137,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void receiveMuseArtifactPacket(final MuseArtifactPacket p, final Muse muse) {
     }
-    private void getEegChannelValues(double[] buffer, MuseDataPacket p) {
-        buffer[0] = p.getEegChannelValue(Eeg.EEG1);
-        buffer[1] = p.getEegChannelValue(Eeg.EEG2);
-        buffer[2] = p.getEegChannelValue(Eeg.EEG3);
-        buffer[3] = p.getEegChannelValue(Eeg.EEG4);
-        buffer[4] = p.getEegChannelValue(Eeg.AUX_LEFT);
-        buffer[5] = p.getEegChannelValue(Eeg.AUX_RIGHT);
+    private void getEegChannelValues(MuseDataPacket p) {
+        eegBuffer[0] = p.getEegChannelValue(Eeg.EEG1);
+        eegBuffer[1] = p.getEegChannelValue(Eeg.EEG2);
+        eegBuffer[2] = p.getEegChannelValue(Eeg.EEG3);
+        eegBuffer[3] = p.getEegChannelValue(Eeg.EEG4);
+        eegBuffer[4] = p.getEegChannelValue(Eeg.AUX_LEFT);
+        eegBuffer[5] = p.getEegChannelValue(Eeg.AUX_RIGHT);
     }
 
 
@@ -188,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
             if (accelStale) {
                 updateAccel();
             }
-
             handler.postDelayed(tickUi, 1000 / 5);
         }
     };
@@ -214,18 +202,7 @@ public class MainActivity extends AppCompatActivity {
         tp10.setText(String.format("%6.2f", eegBuffer[3]));
     }
 
-    class MuseL extends MuseListener {
-        final WeakReference<MainActivity> activityRef;
 
-        MuseL(final WeakReference<MainActivity> activityRef) {
-            this.activityRef = activityRef;
-        }
-
-        @Override
-        public void museListChanged() {
-            activityRef.get().museListChanged();
-        }
-    }
 
     class ConnectionListener extends MuseConnectionListener {
         final WeakReference<MainActivity> activityRef;
