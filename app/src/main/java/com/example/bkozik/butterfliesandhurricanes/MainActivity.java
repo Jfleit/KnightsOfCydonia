@@ -268,13 +268,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                     hex1 = "0" + hex1;
                 }
 
-                hex1 = "#" + hex1;
+
 
                 if(hex1.length() > 6)
                 {
                     hex1 = hex1.substring(0, 6); // reduce hex value if it's too long...
                 }
-                System.out.println("With # " + hex1);
+                hex1 = "#" + hex1;
+
+                System.out.println("after cut " + hex1);
                 //hexColor = Color.decode();
                 /*hexRed = Color.red(Color.parseColor(hex1.substring(0, 2)));
                 hexGreen = Color.green(Color.parseColor(hex1.substring(2, 4)));
