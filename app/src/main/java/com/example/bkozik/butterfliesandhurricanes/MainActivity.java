@@ -49,6 +49,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.bluetooth.BluetoothAdapter;
 import com.choosemuse.libmuse.MuseListener;
 
+import android.content.Intent;
+
 
 public class MainActivity extends AppCompatActivity implements OnClickListener{
 
@@ -97,6 +99,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         TextView textView = (TextView) findViewById(R.id.textView5);
         textView.setText("" + eegBuffer[0]);
          */
+
+    }
+
+    public void goToColors(View view)
+    {
+        Intent intent = new Intent(this, colorActivity.class);
+        intent.putExtra("EEG Array", eegBuffer);
+        startActivity(intent);
+
 
     }
 

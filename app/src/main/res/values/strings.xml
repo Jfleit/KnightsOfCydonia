@@ -11,4 +11,8 @@
     <string name="blink">Blink</string>
     <string name="jaw">Jaw Clench</string>
     <string name="next">Next</string>
+
+    <string name="title_activity_color">colorActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

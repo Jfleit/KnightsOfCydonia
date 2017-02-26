@@ -189,5 +189,6 @@
         android:id="@+id/next"
         android:layout_toStartOf="@+id/eeg_tp9"
         android:layout_above="@+id/muses_spinner"
-        android:layout_alignEnd="@+id/acc_y" />
+        android:layout_alignEnd="@+id/acc_y"
+        android:onClick="goToColors"/>
 </RelativeLayout>
