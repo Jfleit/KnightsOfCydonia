@@ -77,7 +77,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     private final String TAG = "Butterflies";
     private MuseManagerAndroid manager;
