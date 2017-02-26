@@ -1,53 +1,36 @@
 package com.example.bkozik.butterfliesandhurricanes;
 
-import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.List;
-
 import com.choosemuse.libmuse.Accelerometer;
-import com.choosemuse.libmuse.AnnotationData;
 import com.choosemuse.libmuse.ConnectionState;
 import com.choosemuse.libmuse.Eeg;
-import com.choosemuse.libmuse.LibmuseVersion;
-import com.choosemuse.libmuse.MessageType;
 import com.choosemuse.libmuse.Muse;
 import com.choosemuse.libmuse.MuseArtifactPacket;
-import com.choosemuse.libmuse.MuseConfiguration;
 import com.choosemuse.libmuse.MuseConnectionListener;
 import com.choosemuse.libmuse.MuseConnectionPacket;
 import com.choosemuse.libmuse.MuseDataListener;
 import com.choosemuse.libmuse.MuseDataPacket;
 import com.choosemuse.libmuse.MuseDataPacketType;
-
 import com.choosemuse.libmuse.MuseManagerAndroid;
-
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-
-
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-
 import android.support.v7.app.AppCompatActivity;
-
-
-
-
+import android.bluetooth.BluetoothAdapter;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener{
 
@@ -115,6 +98,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                     .create();
             introDialog.show();
         }
+    }
+
+    public boolean isBluetoothEnabled() {
+        return BluetoothAdapter.getDefaultAdapter().isEnabled();
     }
 
     public void receiveMuseConnectionPacket(final MuseConnectionPacket p, final Muse muse) {
