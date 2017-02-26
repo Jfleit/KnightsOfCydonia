@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         tp10.setText(String.format("%6.2f", eegBuffer[3]));
     }
 
-
+    //hello
 
     class ConnectionListener extends MuseConnectionListener {
         final WeakReference<MainActivity> activityRef;
