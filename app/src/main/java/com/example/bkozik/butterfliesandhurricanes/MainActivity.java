@@ -3,6 +3,7 @@ package com.example.bkozik.butterfliesandhurricanes;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.choosemuse.libmuse.Accelerometer;
 import com.choosemuse.libmuse.AnnotationData;
@@ -288,6 +289,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 muse.registerDataListener(dataListener, MuseDataPacketType.QUANTIZATION);
 
                 // Initiate a connection to the headband and stream the data asynchronously.
+
+
+
                 muse.runAsynchronously();
             }
 
