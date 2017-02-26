@@ -178,8 +178,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         // to avoid a resource leak from the LibMuse library.
         manager.stopListening();
     }
-
+    MuseArtifactPacket museArtifactPacket;
     public void receiveMuseArtifactPacket(final MuseArtifactPacket p, final Muse muse) {
+        museArtifactPacket = p;
     }
     private void getEegChannelValues(MuseDataPacket p) {
         eegBuffer[0] = p.getEegChannelValue(Eeg.EEG1);
@@ -239,6 +240,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             }
             if (accelStale) {
                 updateAccel();
+            }
+            if (museArtifactPacket.getBlink()) {
+                updateBlink();
+            }
+            if (museArtifactPacket.getJawClench()) {
+                updateJawClench();
             }
             handler.postDelayed(tickUi, 1000 / 5);
         }
@@ -336,6 +343,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         fp2.setText(String.format("%6.2f", eegBuffer[2]));
         tp10.setText(String.format("%6.2f", eegBuffer[3]));
     }
+
+    private void updateBlink() {
+        TextView blink = (TextView)findViewById(R.id.blink);
+        blink.setText("Blink: "+museArtifactPacket.getBlink());
+    }
+
+    private void updateJawClench() {
+        TextView jawClench = (TextView)findViewById(R.id.jawClench);
+        jawClench.setText("Jaw Clench: "+museArtifactPacket.getJawClench());
+    }
+
 
     class MuseL extends MuseListener {
         final WeakReference<MainActivity> activityRef;
