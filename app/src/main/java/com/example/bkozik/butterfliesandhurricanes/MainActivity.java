@@ -100,10 +100,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         }
     }
 
-    public boolean isBluetoothEnabled() {
-        return BluetoothAdapter.getDefaultAdapter().isEnabled();
-    }
-
     public void receiveMuseConnectionPacket(final MuseConnectionPacket p, final Muse muse) {
 
         final ConnectionState current = p.getCurrentConnectionState();
@@ -129,6 +125,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         if (current == ConnectionState.DISCONNECTED) {
             this.muse = null;
         }
+    }
+
+    public boolean isBluetoothEnabled() {
+        return BluetoothAdapter.getDefaultAdapter().isEnabled();
     }
 
     public void receiveMuseDataPacket(final MuseDataPacket p, final Muse muse) {
