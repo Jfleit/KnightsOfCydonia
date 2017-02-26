@@ -27,7 +27,7 @@ public class colorActivity extends AppCompatActivity {
         eeg4.setText("4: " + String.format("%6.2f", eegArray[3]));
 
         ViewGroup layout = (ViewGroup) findViewById(R.id.activity_color);
-        layout.addView();
+        layout.addView(layout);
 
     }
 }

@@ -10,9 +10,37 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.bkozik.butterfliesandhurricanes.colorActivity">
 
-    
+
     <TextView
-        android:layout_width=""
-        android:layout_height="" />
-    
+        android:text="@string/EEG_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="134dp"
+        android:id="@+id/eeg1" />
+
+    <TextView
+        android:text="@string/EEG_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/eeg1"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/eeg4" />
+
+    <TextView
+        android:text="@string/EEG_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eeg3"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/eeg1" />
+
+    <TextView
+        android:text="@string/EEG_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eeg2"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/eeg4" />
 </RelativeLayout>
