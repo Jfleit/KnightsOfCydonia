@@ -208,6 +208,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     //Todo: we need an initUI method, but with our stuff, not theirs
     private void initUI() {
         setContentView(R.layout.activity_main);
+        Button refreshButton = (Button) findViewById(R.id.refresh);
+        refreshButton.setOnClickListener(this);
         Button connectButton = (Button) findViewById(R.id.connect);
         connectButton.setOnClickListener(this);
         Button disconnectButton = (Button) findViewById(R.id.disconnect);

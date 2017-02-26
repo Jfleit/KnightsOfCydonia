@@ -4,4 +4,8 @@
     <string name="eeg">EEG</string>
     <string name="connection">CONNECT</string>
     <string name="disconnection">DISCONNECT</string>
+    <string name="accel_value">Accel Value</string>
+    <string name="EEG_value">EEG Value</string>
+    <string name="connection_status">Connection Status</string>
+    <string name="refresh">Refresh</string>
 </resources>
