@@ -291,8 +291,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 muse.runAsynchronously();
             }
 
-        }
-        else if (v.getId() == R.id.disconnect) {
+        } else if (v.getId() == R.id.disconnect) {
 
             // The user has pressed the "Disconnect" button.
             // Disconnect from the selected Muse.
@@ -311,8 +310,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             }
          }
         */
+        }
     }
-
 
     private void updateAccel() {
         TextView acc_x = (TextView)findViewById(R.id.acc_x);
@@ -376,5 +375,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         public void receiveMuseArtifactPacket(final MuseArtifactPacket p, final Muse muse) {
             activityRef.get().receiveMuseArtifactPacket(p, muse);
         }
+
     }
 }
