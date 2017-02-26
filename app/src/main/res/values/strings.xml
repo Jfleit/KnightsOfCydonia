@@ -2,4 +2,6 @@
     <string name="app_name">ButterfliesAndHurricanes</string>
     <string name="ur_mom">Acceleration</string>
     <string name="eeg">EEG</string>
+    <string name="connection">CONNECT</string>
+    <string name="disconnection">DISCONNECT</string>
 </resources>

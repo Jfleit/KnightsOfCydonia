@@ -223,6 +223,10 @@ public class MainActivity extends AppCompatActivity {
     //Todo: we need an initUI method, but with our stuff, not theirs
     private void initUI() {
         setContentView(R.layout.activity_main);
+        Button connectButton = (Button) findViewById(R.id.connect);
+        connectButton.setOnClickListener(this);
+        Button disconnectButton = (Button) findViewById(R.id.disconnect);
+        disconnectButton.setOnClickListener(this);
 
 
         spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);

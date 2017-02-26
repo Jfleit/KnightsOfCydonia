@@ -72,15 +72,6 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/eeg_tp9"
-        android:layout_alignBaseline="@+id/eeg_af7"
-        android:layout_alignBottom="@+id/eeg_af7"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/eeg_af7"
         android:layout_below="@+id/textView4"
         android:layout_toStartOf="@+id/textView5" />
@@ -107,5 +98,43 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView6"
         android:layout_alignEnd="@+id/acc_y"
-        android:id="@+id/con_status" />
+        android:id="@+id/con_status"
+        android:layout_centerHorizontal="false"
+        android:layout_centerVertical="false" />
+
+    <Button
+        android:text="@string/connection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/eeg_af7"
+        android:layout_marginBottom="77dp"
+        android:id="@+id/connect" />
+
+    <Button
+        android:text="@string/disconnection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:id="@+id/disconnect"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/connect"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="21dp"
+        android:id="@+id/muses_spinner" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eeg_tp9"
+        android:layout_alignBaseline="@+id/eeg_af7"
+        android:layout_alignBottom="@+id/eeg_af7"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
