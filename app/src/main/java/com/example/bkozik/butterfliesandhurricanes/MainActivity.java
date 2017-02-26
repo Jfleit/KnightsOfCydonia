@@ -281,18 +281,18 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 muse.unregisterAllListeners();
                 muse.registerConnectionListener(connectionListener);
                 muse.registerDataListener(dataListener, MuseDataPacketType.EEG);
-                //muse.registerDataListener(dataListener, MuseDataPacketType.ALPHA_RELATIVE);
+                muse.registerDataListener(dataListener, MuseDataPacketType.ALPHA_RELATIVE);
                 muse.registerDataListener(dataListener, MuseDataPacketType.ACCELEROMETER);
-                //muse.registerDataListener(dataListener, MuseDataPacketType.BATTERY);
-                //muse.registerDataListener(dataListener, MuseDataPacketType.DRL_REF);
-                //muse.registerDataListener(dataListener, MuseDataPacketType.QUANTIZATION);
+                muse.registerDataListener(dataListener, MuseDataPacketType.BATTERY);
+                muse.registerDataListener(dataListener, MuseDataPacketType.DRL_REF);
+                muse.registerDataListener(dataListener, MuseDataPacketType.QUANTIZATION);
 
                 // Initiate a connection to the headband and stream the data asynchronously.
                 muse.runAsynchronously();
             }
 
         }
-        /*else if (v.getId() == R.id.disconnect) {
+        else if (v.getId() == R.id.disconnect) {
 
             // The user has pressed the "Disconnect" button.
             // Disconnect from the selected Muse.
@@ -300,7 +300,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 muse.disconnect();
             }
 
-        } else if (v.getId() == R.id.pause) {
+        /*} else if (v.getId() == R.id.pause) {
 
             // The user has pressed the "Pause/Resume" button to either pause or
             // resume data transmission.  Toggle the state and pause or resume the
