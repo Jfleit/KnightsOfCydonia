@@ -216,6 +216,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         connectButton.setOnClickListener(this);
         Button disconnectButton = (Button) findViewById(R.id.disconnect);
         disconnectButton.setOnClickListener(this);
+        Button nextButton = (Button) findViewById(R.id.next);
+        nextButton.setOnClickListener(this);
 
 
         spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);

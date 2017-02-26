@@ -179,4 +179,15 @@
         android:layout_alignBaseline="@+id/acc_z"
         android:layout_alignBottom="@+id/acc_z"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/con_status"
+        android:layout_alignStart="@+id/connect"
+        android:id="@+id/next"
+        android:layout_toStartOf="@+id/eeg_tp9"
+        android:layout_above="@+id/muses_spinner"
+        android:layout_alignEnd="@+id/acc_y" />
 </RelativeLayout>
