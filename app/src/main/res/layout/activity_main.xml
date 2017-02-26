@@ -18,31 +18,6 @@
         android:layout_alignEnd="@+id/accelLabel"
         android:id="@+id/textView6" />
 
-    <TextView
-        android:text="@string/accel_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/acc_y"
-        android:layout_below="@+id/accelLabel"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="@string/EEG_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/eeg_af7"
-        android:layout_below="@+id/EEGLabel"
-        android:layout_toStartOf="@+id/accelLabel" />
-
-    <Button
-        android:text="@string/connection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/eeg_af7"
-        android:layout_marginBottom="77dp"
-        android:id="@+id/connect" />
-
     <Button
         android:text="@string/disconnection"
         android:layout_width="wrap_content"
@@ -63,75 +38,12 @@
         android:id="@+id/muses_spinner" />
 
     <TextView
-        android:text="@string/EEG_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/EEGLabel"
-        android:layout_toEndOf="@+id/EEGLabel"
-        android:layout_marginStart="16dp"
-        android:id="@+id/eeg_tp9" />
-
-    <TextView
-        android:text="@string/EEG_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/eeg_tp10"
-        android:layout_alignBaseline="@+id/eeg_tp9"
-        android:layout_alignBottom="@+id/eeg_tp9"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="23dp" />
-
-    <TextView
-        android:text="@string/accel_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/acc_z"
-        android:layout_below="@+id/accelLabel"
-        android:layout_toEndOf="@+id/eeg_tp9" />
-
-    <TextView
-        android:text="@string/EEG_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/eeg_af8"
-        android:layout_alignBaseline="@+id/eeg_af7"
-        android:layout_alignBottom="@+id/eeg_af7"
-        android:layout_alignStart="@+id/acc_x" />
-
-    <TextView
-        android:text="@string/accel_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/acc_x"
-        android:layout_below="@+id/accelLabel"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="@string/refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView6"
-        android:layout_toEndOf="@+id/eeg_af7"
-        android:layout_marginBottom="21dp"
-        android:id="@+id/refresh" />
-
-    <TextView
         android:text="@string/connection_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/con_status"
         android:layout_below="@+id/textView6"
         android:layout_alignStart="@+id/disconnect" />
-
-    <TextView
-        android:text="@string/eeg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:id="@+id/EEGLabel"
-        android:layout_below="@+id/acc_y"
-        android:layout_alignStart="@+id/acc_y"
-        android:layout_marginStart="13dp" />
 
     <TextView
         android:text="TextView"
@@ -155,26 +67,116 @@
         android:text="@string/ur_mom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="17dp"
         android:id="@+id/accelLabel"
         android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/acc_y" />
+
+    <Button
+        android:text="@string/refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:id="@+id/refresh"
+        android:layout_above="@+id/textView6"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/accel_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/acc_x"
+        android:layout_alignBaseline="@+id/acc_y"
+        android:layout_alignBottom="@+id/acc_y"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/eeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        android:id="@+id/EEGLabel"
+        android:layout_below="@+id/acc_y"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/EEG_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eeg_tp10"
+        android:layout_alignBaseline="@+id/eeg_tp9"
+        android:layout_alignBottom="@+id/eeg_tp9"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="@string/EEG_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eeg_af8"
+        android:layout_alignBaseline="@+id/eeg_af7"
+        android:layout_alignBottom="@+id/eeg_af7"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:text="@string/blink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/refresh"
-        android:layout_toStartOf="@+id/con_status"
-        android:layout_marginEnd="26dp"
-        android:layout_marginBottom="12dp"
-        android:id="@+id/blink" />
+        android:id="@+id/blink"
+        android:layout_alignBaseline="@+id/refresh"
+        android:layout_alignBottom="@+id/refresh"
+        android:layout_alignEnd="@+id/eeg_af8" />
+
+    <TextView
+        android:text="@string/EEG_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eeg_af7"
+        android:layout_below="@+id/EEGLabel"
+        android:layout_toStartOf="@+id/EEGLabel"
+        android:layout_marginEnd="12dp" />
+
+    <TextView
+        android:text="@string/EEG_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:id="@+id/eeg_tp9"
+        android:layout_below="@+id/EEGLabel"
+        android:layout_toEndOf="@+id/EEGLabel" />
 
     <TextView
         android:text="@string/jaw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/blink"
-        android:layout_toEndOf="@+id/con_status"
-        android:id="@+id/jawClench" />
+        android:id="@+id/jawClench"
+        android:layout_alignBaseline="@+id/refresh"
+        android:layout_alignBottom="@+id/refresh"
+        android:layout_toEndOf="@+id/eeg_tp9" />
+
+    <TextView
+        android:text="@string/accel_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/acc_y"
+        android:layout_alignBaseline="@+id/acc_z"
+        android:layout_alignBottom="@+id/acc_z"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/accel_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/acc_z"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/accelLabel"
+        android:layout_toEndOf="@+id/eeg_tp9" />
+
+    <Button
+        android:text="@string/connection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/connect"
+        android:layout_above="@+id/disconnect"
+        android:layout_alignStart="@+id/refresh" />
 </RelativeLayout>
