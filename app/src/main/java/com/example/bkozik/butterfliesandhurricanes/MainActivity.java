@@ -36,7 +36,6 @@ import com.choosemuse.libmuse.MuseManagerAndroid;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-
 public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     private final String TAG = "Butterflies";
@@ -57,7 +56,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     Intent intent;
     Button clickButton;
     String hex1;
-
+    String hex2;
+    String hex3;
+    String hex4;
+    int hexRed;
+    int hexGreen;
+    int hexBlue;
+    View bigRect;
+    Color hexColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
             @Override
             public void onClick(View v) {
-                View bigRect = findViewById(R.id.bigRect1);
+                bigRect = findViewById(R.id.bigRect1);
                 bigRect.setVisibility(View.VISIBLE);
                 shouldIBeDoingColors = true;
             }
@@ -253,9 +259,33 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 updateEeg();
                 if(shouldIBeDoingColors)
                 {
-                clickButton = (Button) findViewById(R.id.next);
-                hex1 = Integer.toHexString((int)eegBuffer[0] * 10);
-                clickButton.setBackgroundColor(Color.parseColor(hex1));
+                bigRect = findViewById(R.id.bigRect1);
+                hex1 = Integer.toHexString((int)eegBuffer[0] * 13653);
+                System.out.println("Hex String " + hex1);
+
+                for(int i = hex1.length(); i < 6; i++)
+                {
+                    hex1 = "0" + hex1;
+                }
+
+                hex1 = "#" + hex1;
+
+                if(hex1.length() > 6)
+                {
+                    hex1 = hex1.substring(0, 6); // reduce hex value if it's too long...
+                }
+                System.out.println("With # " + hex1);
+                //hexColor = Color.decode();
+                /*hexRed = Color.red(Color.parseColor(hex1.substring(0, 2)));
+                hexGreen = Color.green(Color.parseColor(hex1.substring(2, 4)));
+                hexBlue = Color.blue(Color.parseColor(hex1.substring(4, 5)));
+                System.out.println(hexRed);
+                System.out.println(hexGreen);
+                System.out.println(hexBlue);
+*/
+                System.out.println(Color.parseColor(hex1));
+
+                bigRect.setBackgroundColor(Color.parseColor(hex1));
                 }
             }
             if (accelStale) {
@@ -268,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 updateJawClench();
             }
             */
-            handler.postDelayed(tickUi, 1000 / 5);
+            handler.postDelayed(tickUi, 1000 / 3);
         }
     };
 
