@@ -1,36 +1,53 @@
 package com.example.bkozik.butterfliesandhurricanes;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.List;
+
 import com.choosemuse.libmuse.Accelerometer;
+import com.choosemuse.libmuse.AnnotationData;
 import com.choosemuse.libmuse.ConnectionState;
 import com.choosemuse.libmuse.Eeg;
+import com.choosemuse.libmuse.LibmuseVersion;
+import com.choosemuse.libmuse.MessageType;
 import com.choosemuse.libmuse.Muse;
 import com.choosemuse.libmuse.MuseArtifactPacket;
+import com.choosemuse.libmuse.MuseConfiguration;
 import com.choosemuse.libmuse.MuseConnectionListener;
 import com.choosemuse.libmuse.MuseConnectionPacket;
 import com.choosemuse.libmuse.MuseDataListener;
 import com.choosemuse.libmuse.MuseDataPacket;
 import com.choosemuse.libmuse.MuseDataPacketType;
+
 import com.choosemuse.libmuse.MuseManagerAndroid;
+
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+
+
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+
 import android.support.v7.app.AppCompatActivity;
+
 import android.bluetooth.BluetoothAdapter;
+import com.choosemuse.libmuse.MuseListener;
+
 
 public class MainActivity extends AppCompatActivity implements OnClickListener{
 
@@ -179,6 +196,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         accelBuffer[2] = p.getAccelerometerValue(Accelerometer.Z);
     }
 
+    public void museListChanged() {
+        final List<Muse> list = manager.getMuses();
+        spinnerAdapter.clear();
+        for (Muse m : list) {
+            spinnerAdapter.add(m.getName() + " - " + m.getMacAddress());
+        }
+    }
+
 
     //Todo: we need an initUI method, but with our stuff, not theirs
     private void initUI() {
@@ -307,7 +332,18 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         tp10.setText(String.format("%6.2f", eegBuffer[3]));
     }
 
-    //hello
+    class MuseL extends MuseListener {
+        final WeakReference<MainActivity> activityRef;
+
+        MuseL(final WeakReference<MainActivity> activityRef) {
+            this.activityRef = activityRef;
+        }
+
+        @Override
+        public void museListChanged() {
+            activityRef.get().museListChanged();
+        }
+    }
 
     class ConnectionListener extends MuseConnectionListener {
         final WeakReference<MainActivity> activityRef;
