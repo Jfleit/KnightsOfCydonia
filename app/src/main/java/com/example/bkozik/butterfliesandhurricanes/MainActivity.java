@@ -76,13 +76,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
        // LogManager.instance().setLogListener(new AndroidLogListener());
         manager.setContext(this);
-
-        manager.startListening();
-        List<Muse> museList = manager.getMuses();
-
-
-
-
         //Log.i(TAG, "LibMuse version=" + LibmuseVersion.instance().getString());
 
         WeakReference<MainActivity> weakActivity =
@@ -91,12 +84,19 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         connectionListener = new ConnectionListener(weakActivity);
         // Register a listener to receive data from a Muse.
         dataListener = new DataListener(weakActivity);
+        manager.setMuseListener(new MuseL(weakActivity));
         ensurePermissions();
+
+        initUI();
+
+        handler.post(tickUi);
+
+        /*
         setContentView(R.layout.activity_main);
         TextView textView = (TextView) findViewById(R.id.textView5);
         textView.setText("" + eegBuffer[0]);
-        initUI();
-        handler.post(tickUi);
+         */
+
     }
 
     private void ensurePermissions() {
@@ -244,14 +244,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     //@Override
     public void onClick(View v) {
 
-        //if (v.getId() == R.id.refresh) {
+        if (v.getId() == R.id.refresh) {
             // The user has pressed the "Refresh" button.
             // Start listening for nearby or paired Muse headbands. We call stopListening
             // first to make sure startListening will clear the list of headbands and start fresh.
-        //    manager.stopListening();
-        //    manager.startListening();
+            manager.stopListening();
+            manager.startListening();
 
-        //}
+        }
         if (v.getId() == R.id.connect) {
 
             // The user has pressed the "Connect" button to connect to
@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 muse.unregisterAllListeners();
                 muse.registerConnectionListener(connectionListener);
                 muse.registerDataListener(dataListener, MuseDataPacketType.EEG);
-                muse.registerDataListener(dataListener, MuseDataPacketType.ALPHA_RELATIVE);
+                //muse.registerDataListener(dataListener, MuseDataPacketType.ALPHA_RELATIVE);
                 muse.registerDataListener(dataListener, MuseDataPacketType.ACCELEROMETER);
                 //muse.registerDataListener(dataListener, MuseDataPacketType.BATTERY);
                 //muse.registerDataListener(dataListener, MuseDataPacketType.DRL_REF);
@@ -311,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         */
     }
 
-    //Todo change this to our shit
+
     private void updateAccel() {
         TextView acc_x = (TextView)findViewById(R.id.acc_x);
         TextView acc_y = (TextView)findViewById(R.id.acc_y);
