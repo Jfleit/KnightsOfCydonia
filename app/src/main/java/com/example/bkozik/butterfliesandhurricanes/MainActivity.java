@@ -1,55 +1,40 @@
 package com.example.bkozik.butterfliesandhurricanes;
 
-import java.io.File;
-import java.lang.ref.WeakReference;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import android.Manifest;
+import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.choosemuse.libmuse.Accelerometer;
-import com.choosemuse.libmuse.AnnotationData;
 import com.choosemuse.libmuse.ConnectionState;
 import com.choosemuse.libmuse.Eeg;
-import com.choosemuse.libmuse.LibmuseVersion;
-import com.choosemuse.libmuse.MessageType;
 import com.choosemuse.libmuse.Muse;
 import com.choosemuse.libmuse.MuseArtifactPacket;
-import com.choosemuse.libmuse.MuseConfiguration;
 import com.choosemuse.libmuse.MuseConnectionListener;
 import com.choosemuse.libmuse.MuseConnectionPacket;
 import com.choosemuse.libmuse.MuseDataListener;
 import com.choosemuse.libmuse.MuseDataPacket;
 import com.choosemuse.libmuse.MuseDataPacketType;
-
+import com.choosemuse.libmuse.MuseListener;
 import com.choosemuse.libmuse.MuseManagerAndroid;
 
-
-import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.view.View.OnClickListener;
-
-
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-
-import android.support.v7.app.AppCompatActivity;
-
-import android.bluetooth.BluetoothAdapter;
-import com.choosemuse.libmuse.MuseListener;
-
-import android.content.Intent;
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements OnClickListener{
@@ -66,8 +51,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     private boolean eegStale;
     private final double[] accelBuffer = new double[3];
     private boolean accelStale;
+    private boolean shouldIBeDoingColors = false;
 
     private final Handler handler = new Handler();
+    Intent intent;
+    Button clickButton;
+    String hex1;
 
 
     @Override
@@ -100,17 +89,29 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         textView.setText("" + eegBuffer[0]);
          */
 
+        clickButton = (Button) findViewById(R.id.next);
+        clickButton.setOnClickListener( new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                View bigRect = findViewById(R.id.bigRect1);
+                bigRect.setVisibility(View.VISIBLE);
+                shouldIBeDoingColors = true;
+            }
+        });
+
+
+        String hex1;
     }
 
-    public void goToColors(View view)
+  /*  public void goToColors(View view)
     {
-        Intent intent = new Intent(this, colorActivity.class);
+        intent = new Intent(this, colorActivity.class);
         intent.putExtra("EEG Array", eegBuffer);
         startActivity(intent);
 
-
     }
-
+*/
     private void ensurePermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             DialogInterface.OnClickListener buttonListener =
@@ -250,6 +251,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         public void run() {
             if (eegStale) {
                 updateEeg();
+                if(shouldIBeDoingColors)
+                {
+                clickButton = (Button) findViewById(R.id.next);
+                hex1 = Integer.toHexString((int)eegBuffer[0] * 10);
+                clickButton.setBackgroundColor(Color.parseColor(hex1));
+                }
             }
             if (accelStale) {
                 updateAccel();
@@ -415,4 +422,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         }
 
     }
+
+
+
+
+
+
 }

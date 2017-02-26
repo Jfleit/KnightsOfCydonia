@@ -5,6 +5,13 @@
     android:orientation="vertical"
     android:weightSum="1">
 
+    <View android:id="@+id/bigRect1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="#ff0000"
+        android:visibility="gone"/>
+
     <TextView
         android:text="@string/ur_mom"
         android:layout_width="match_parent"
@@ -177,7 +184,8 @@
         android:text="@string/next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/next" />
+        android:id="@+id/next"
+        android:onClick="doTheColors"/>
 
 </LinearLayout>
 <!--
