@@ -73,9 +73,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         setContentView(R.layout.activity_main);
 
         manager = MuseManagerAndroid.getInstance();
-        manager.startListening();
+
        // LogManager.instance().setLogListener(new AndroidLogListener());
         manager.setContext(this);
+
         manager.startListening();
         List<Muse> museList = manager.getMuses();
 
