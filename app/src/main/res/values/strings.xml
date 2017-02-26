@@ -2,9 +2,17 @@
     <string name="app_name">ButterfliesAndHurricanes</string>
     <string name="ur_mom">Acceleration</string>
     <string name="eeg">EEG</string>
+    <string name="eeg1">EEG 1</string>
+    <string name="eeg2">EEG 2</string>
+    <string name="eeg3">EEG 3</string>
+    <string name="eeg4">EEG 4</string>
     <string name="connection">CONNECT</string>
     <string name="disconnection">DISCONNECT</string>
+    <string name="accelx">Accel X</string>
+    <string name="accely">Accel Y</string>
+    <string name="accelz">Accel Z</string>
     <string name="accel_value">Accel Value</string>
+    <string name="accelLabel">Accel Value</string>
     <string name="EEG_value">EEG Value</string>
     <string name="connection_status">Connection Status</string>
     <string name="refresh">Refresh</string>

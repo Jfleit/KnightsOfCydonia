@@ -1,4 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:text="@string/ur_mom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView11"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.07">
+
+        <TextView
+            android:text="@string/accelx"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView12"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:textAlignment="center"
+            android:layout_width="128dp" />
+
+        <TextView
+            android:text="@string/accely"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView15"
+            android:textAlignment="center" />
+
+        <TextView
+            android:text="@string/accelz"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView14"
+            android:textAlignment="center"
+            android:layout_width="128dp" />
+
+        <TextView
+            android:text="@string/accel_value"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/acc_x"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:textAlignment="center" />
+        <TextView
+            android:text="@string/accel_value"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/acc_y"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:textAlignment="center" />
+        <TextView
+            android:text="@string/accel_value"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/acc_z"
+            android:layout_row="1"
+            android:layout_column="3"
+            android:textAlignment="center" />
+    </GridLayout>
+
+    <TextView
+        android:text="@string/eeg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView32"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/eeg1"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView36"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:textAlignment="center" />
+        <TextView
+            android:text="@string/eeg2"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView37"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:textAlignment="center" />
+        <TextView
+            android:text="@string/eeg3"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView38"
+            android:layout_row="0"
+            android:layout_column="3"
+            android:textAlignment="center" />
+        <TextView
+            android:text="@string/eeg4"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView39"
+            android:layout_row="0"
+            android:layout_column="4"
+            android:textAlignment="center" />
+        <TextView
+            android:text="@string/EEG_value"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/eeg_af7"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:textAlignment="center" />
+        <TextView
+            android:text="@string/EEG_value"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/eeg_af8"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:textAlignment="center" />
+        <TextView
+            android:text="@string/EEG_value"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/eeg_tp9"
+            android:layout_row="1"
+            android:layout_column="3"
+            android:textAlignment="center" />
+        <TextView
+            android:text="@string/EEG_value"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/eeg_tp10"
+            android:layout_row="1"
+            android:layout_column="4"
+            android:textAlignment="center" />
+
+
+
+    </GridLayout>
+
+    <Button
+        android:text="@string/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/refresh" />
+
+    <TextView
+        android:text="@string/connection_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/con_status"
+        android:textAlignment="center" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/muses_spinner" />
+    <Button
+        android:text="@string/connection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/connect" />
+    <Button
+        android:text="@string/disconnection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/disconnect" />
+
+    <Button
+        android:text="@string/next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/next" />
+
+</LinearLayout>
+<!--
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -191,4 +373,6 @@
         android:layout_above="@+id/muses_spinner"
         android:layout_alignEnd="@+id/acc_y"
         android:onClick="goToColors"/>
+
 </RelativeLayout>
+-->
