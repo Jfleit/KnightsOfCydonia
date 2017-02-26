@@ -6,11 +6,35 @@
     android:weightSum="1">
 
     <View android:id="@+id/bigRect1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:background="#ff0000"
-        android:visibility="gone"/>
+        android:background="#1eff00"
+        android:visibility="gone"
+        android:layout_width="500dp"
+        android:layout_height="150dp" />
+
+    <View android:id="@+id/bigRect2"
+        android:layout_alignParentTop="true"
+        android:background="#00aeff"
+        android:visibility="gone"
+        android:layout_width="500dp"
+        android:layout_height="150dp" />
+
+
+    <View android:id="@+id/bigRect3"
+        android:layout_alignParentTop="true"
+        android:background="#ffae00"
+        android:visibility="gone"
+        android:layout_width="500dp"
+        android:layout_height="150dp" />
+
+
+    <View android:id="@+id/bigRect4"
+        android:layout_alignParentTop="true"
+        android:background="#ff00dd"
+        android:visibility="gone"
+        android:layout_width="500dp"
+        android:layout_height="150dp" />
+
 
     <TextView
         android:text="@string/ur_mom"

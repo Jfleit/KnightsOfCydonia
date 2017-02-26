@@ -62,7 +62,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     int hexRed;
     int hexGreen;
     int hexBlue;
-    View bigRect;
+    View bigRect1;
+    View bigRect2;
+    View bigRect3;
+    View bigRect4;
+
     Color hexColor;
 
     @Override
@@ -100,14 +104,18 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
             @Override
             public void onClick(View v) {
-                bigRect = findViewById(R.id.bigRect1);
-                bigRect.setVisibility(View.VISIBLE);
+                bigRect1 = findViewById(R.id.bigRect1);
+                bigRect2 = findViewById(R.id.bigRect2);
+                bigRect3 = findViewById(R.id.bigRect3);
+                bigRect4 = findViewById(R.id.bigRect4);
+                bigRect1.setVisibility(View.VISIBLE);
+                bigRect2.setVisibility(View.VISIBLE);
+                bigRect3.setVisibility(View.VISIBLE);
+                bigRect4.setVisibility(View.VISIBLE);
                 shouldIBeDoingColors = true;
             }
         });
 
-
-        String hex1;
     }
 
   /*  public void goToColors(View view)
@@ -259,13 +267,32 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 updateEeg();
                 if(shouldIBeDoingColors)
                 {
-                bigRect = findViewById(R.id.bigRect1);
+                bigRect1 = findViewById(R.id.bigRect1);
+                bigRect2 = findViewById(R.id.bigRect2);
+                bigRect3 = findViewById(R.id.bigRect3);
+                bigRect4 = findViewById(R.id.bigRect4);
+
                 hex1 = Integer.toHexString((int)eegBuffer[0] * 13653);
+                hex2 = Integer.toHexString((int)eegBuffer[1] * 13653);
+                hex3 = Integer.toHexString((int)eegBuffer[2] * 13653);
+                hex4 = Integer.toHexString((int)eegBuffer[3] * 13653);
                 System.out.println("Hex String " + hex1);
 
                 for(int i = hex1.length(); i < 6; i++)
                 {
                     hex1 = "0" + hex1;
+                }
+                for(int i = hex2.length(); i < 6; i++)
+                {
+                    hex2 = "0" + hex2;
+                }
+                for(int i = hex3.length(); i < 6; i++)
+                {
+                    hex3 = "0" + hex3;
+                }
+                for(int i = hex4.length(); i < 6; i++)
+                {
+                    hex4 = "0" + hex4;
                 }
 
 
@@ -274,7 +301,23 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
                 {
                     hex1 = hex1.substring(0, 6); // reduce hex value if it's too long...
                 }
+
+                if(hex2.length() > 6)
+                {
+                    hex2 = hex2.substring(0, 6); // reduce hex value if it's too long...
+                }
+                if(hex3.length() > 6)
+                {
+                    hex3 = hex3.substring(0, 6); // reduce hex value if it's too long...
+                }
+                if(hex4.length() > 6)
+                {
+                    hex4 = hex4.substring(0, 6); // reduce hex value if it's too long...
+                }
                 hex1 = "#" + hex1;
+                hex2 = "#" + hex2;
+                hex3 = "#" + hex3;
+                hex4 = "#" + hex4;
 
                 System.out.println("after cut " + hex1);
                 //hexColor = Color.decode();
@@ -287,7 +330,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 */
                 System.out.println(Color.parseColor(hex1));
 
-                bigRect.setBackgroundColor(Color.parseColor(hex1));
+                bigRect1.setBackgroundColor(Color.parseColor(hex1));
+                bigRect2.setBackgroundColor(Color.parseColor(hex2));
+                bigRect3.setBackgroundColor(Color.parseColor(hex3));
+                bigRect4.setBackgroundColor(Color.parseColor(hex4));
+
                 }
             }
             if (accelStale) {
