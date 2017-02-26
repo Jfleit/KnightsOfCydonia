@@ -38,14 +38,6 @@
         android:id="@+id/muses_spinner" />
 
     <TextView
-        android:text="@string/connection_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/con_status"
-        android:layout_below="@+id/textView6"
-        android:layout_alignStart="@+id/disconnect" />
-
-    <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,15 +53,6 @@
         android:layout_toStartOf="@+id/con_status"
         android:id="@+id/textView13"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/acc_y" />
-
-    <TextView
-        android:text="@string/ur_mom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:id="@+id/accelLabel"
-        android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/acc_y" />
 
     <Button
@@ -153,24 +136,6 @@
         android:layout_alignBottom="@+id/refresh"
         android:layout_toEndOf="@+id/eeg_tp9" />
 
-    <TextView
-        android:text="@string/accel_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/acc_y"
-        android:layout_alignBaseline="@+id/acc_z"
-        android:layout_alignBottom="@+id/acc_z"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="@string/accel_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/acc_z"
-        android:layout_marginTop="19dp"
-        android:layout_below="@+id/accelLabel"
-        android:layout_toEndOf="@+id/eeg_tp9" />
-
     <Button
         android:text="@string/connection"
         android:layout_width="wrap_content"
@@ -179,4 +144,39 @@
         android:id="@+id/connect"
         android:layout_above="@+id/disconnect"
         android:layout_alignStart="@+id/refresh" />
+
+    <TextView
+        android:text="@string/connection_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/con_status"
+        android:layout_below="@+id/textView6"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/ur_mom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:id="@+id/accelLabel"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/accel_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/acc_z"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/accelLabel"
+        android:layout_toEndOf="@+id/eeg_tp9" />
+
+    <TextView
+        android:text="@string/accel_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/acc_y"
+        android:layout_alignBaseline="@+id/acc_z"
+        android:layout_alignBottom="@+id/acc_z"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
