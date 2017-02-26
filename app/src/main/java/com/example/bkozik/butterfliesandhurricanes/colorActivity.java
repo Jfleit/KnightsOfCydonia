@@ -12,7 +12,7 @@ public class colorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color);
-
+//hehe
         Intent intent = getIntent();
         double[] eegArray = intent.getDoubleArrayExtra("EEG Array");
 
