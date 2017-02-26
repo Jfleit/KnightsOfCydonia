@@ -292,6 +292,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             }
             if (accelStale) {
                 updateAccel();
+
             }
            /* if (museArtifactPacket.getBlink()) {
                 updateBlink();
