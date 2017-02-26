@@ -262,6 +262,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             manager.startListening();
 
         }
+
         if (v.getId() == R.id.connect) {
 
             // The user has pressed the "Connect" button to connect to

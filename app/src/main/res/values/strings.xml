@@ -8,4 +8,6 @@
     <string name="EEG_value">EEG Value</string>
     <string name="connection_status">Connection Status</string>
     <string name="refresh">Refresh</string>
+    <string name="blink">Blink</string>
+    <string name="jaw">Jaw Clench</string>
 </resources>
